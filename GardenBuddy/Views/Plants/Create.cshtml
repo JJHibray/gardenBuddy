@@ -1,0 +1,110 @@
+﻿@model GardenBuddy.Models.PlantViewModels.CreatePlantViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Plant</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form enctype="multipart/form-data" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="plant.PlantName" class="control-label"></label>
+                <input asp-for="plant.PlantName" class="form-control" />
+                <span asp-validation-for="plant.PlantName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="plant.rowWidth" class="control-label"></label>
+                <input asp-for="plant.rowWidth" class="form-control" />
+                <span asp-validation-for="plant.rowWidth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="plant.BetweenPlants" class="control-label"></label>
+                <input asp-for="plant.BetweenPlants" class="form-control" />
+                <span asp-validation-for="plant.BetweenPlants" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="plant.groundDepth" class="control-label"></label>
+                <input asp-for="plant.groundDepth" class="form-control" />
+                <span asp-validation-for="plant.groundDepth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="plant.Soil" class="control-label"></label>
+                <input asp-for="plant.Soil" class="form-control" />
+                <span asp-validation-for="plant.Soil" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="plant.Season" class="control-label"></label>
+                <input asp-for="plant.Season" class="form-control" />
+                <span asp-validation-for="plant.Season" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="plant.Watering" class="control-label"></label>
+                <input asp-for="plant.Watering" class="form-control" />
+                <span asp-validation-for="plant.Watering" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="plant.Pruning" class="control-label"></label>
+                <input asp-for="plant.Pruning" class="form-control" />
+                <span asp-validation-for="plant.Pruning" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="plant.Pests" class="control-label"></label>
+                <input asp-for="plant.Pests" class="form-control" />
+                <span asp-validation-for="plant.Pests" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="plant.Disease" class="control-label"></label>
+                <input asp-for="plant.Disease" class="form-control" />
+                <span asp-validation-for="plant.Disease" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="plant.MiscCare" class="control-label"></label>
+                <input asp-for="plant.MiscCare" class="form-control" />
+                <span asp-validation-for="plant.MiscCare" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="plant.Storage" class="control-label"></label>
+                <input asp-for="plant.Storage" class="form-control" />
+                <span asp-validation-for="plant.Storage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="plant.harvestMethod" class="control-label"></label>
+                <input asp-for="plant.harvestMethod" class="form-control" />
+                <span asp-validation-for="plant.harvestMethod" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Photo" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <div class="custom-file">
+                        <input asp-for="Photo" class="form-control custom-file-input">
+                        <label class="custom-file-label">Choose File...</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+            @section Scripts {
+                <script>
+            $(document).ready(function () {
+                $('.custom-file-input').on("change", function () {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).next('.custom-file-label').html(fileName);
+                });
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            });
+                </script>
+            }
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

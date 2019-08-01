@@ -1,0 +1,99 @@
+﻿@model GardenBuddy.Models.Plant
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Plant</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PlantId" />
+            <div class="form-group">
+                <label asp-for="PlantName" class="control-label"></label>
+                <input asp-for="PlantName" class="form-control" />
+                <span asp-validation-for="PlantName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="rowWidth" class="control-label"></label>
+                <input asp-for="rowWidth" class="form-control" />
+                <span asp-validation-for="rowWidth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BetweenPlants" class="control-label"></label>
+                <input asp-for="BetweenPlants" class="form-control" />
+                <span asp-validation-for="BetweenPlants" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="groundDepth" class="control-label"></label>
+                <input asp-for="groundDepth" class="form-control" />
+                <span asp-validation-for="groundDepth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Soil" class="control-label"></label>
+                <input asp-for="Soil" class="form-control" />
+                <span asp-validation-for="Soil" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Season" class="control-label"></label>
+                <input asp-for="Season" class="form-control" />
+                <span asp-validation-for="Season" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Watering" class="control-label"></label>
+                <input asp-for="Watering" class="form-control" />
+                <span asp-validation-for="Watering" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pruning" class="control-label"></label>
+                <input asp-for="Pruning" class="form-control" />
+                <span asp-validation-for="Pruning" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pests" class="control-label"></label>
+                <input asp-for="Pests" class="form-control" />
+                <span asp-validation-for="Pests" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Disease" class="control-label"></label>
+                <input asp-for="Disease" class="form-control" />
+                <span asp-validation-for="Disease" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MiscCare" class="control-label"></label>
+                <input asp-for="MiscCare" class="form-control" />
+                <span asp-validation-for="MiscCare" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Storage" class="control-label"></label>
+                <input asp-for="Storage" class="form-control" />
+                <span asp-validation-for="Storage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="harvestMethod" class="control-label"></label>
+                <input asp-for="harvestMethod" class="form-control" />
+                <span asp-validation-for="harvestMethod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImagePath" class="control-label"></label>
+                <input asp-for="ImagePath" class="form-control" />
+                <span asp-validation-for="ImagePath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

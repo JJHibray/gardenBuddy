@@ -1,0 +1,115 @@
+﻿@model IEnumerable<GardenBuddy.Models.Plant>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PlantName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.rowWidth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BetweenPlants)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.groundDepth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Soil)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Season)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Watering)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pruning)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pests)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Disease)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MiscCare)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Storage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.harvestMethod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            @{var photoPath = "~/images/" + (item.ImagePath ?? "noimage.jpg");}
+            <td>
+                @Html.DisplayFor(modelItem => item.PlantName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.rowWidth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BetweenPlants)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.groundDepth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Soil)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Season)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Watering)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pruning)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pests)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Disease)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MiscCare)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Storage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.harvestMethod)
+            </td>
+            <td>
+                <img class="card-img-top imageThumbnail" src="~/images/@item.ImagePath"
+                     asp-append-version="true" />
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PlantId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PlantId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PlantId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
