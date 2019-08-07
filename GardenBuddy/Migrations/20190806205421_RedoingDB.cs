@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GardenBuddy.Migrations
 {
-    public partial class InitialSeed : Migration
+    public partial class RedoingDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,8 +40,7 @@ namespace GardenBuddy.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -154,10 +153,86 @@ namespace GardenBuddy.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "c27ddb49-7aa0-45dc-a702-cb5ae49023e0", 0, "be45d8e7-3f6a-4dc0-91a9-2ab2295b0e05", "ApplicationUser", "Josh@gmail.com", false, false, null, null, null, "AQAAAAEAACcQAAAAEAAVYJvKIdgZJU6MMMkXK5n3mIo+0qkMiUAUrgV3vmMqzN/m41n76BHYykjx998edg==", null, false, null, false, "Josh@gmail.com" });
+            migrationBuilder.CreateTable(
+                name: "GardenBeds",
+                columns: table => new
+                {
+                    GardenBedId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    name = table.Column<string>(nullable: false),
+                    userId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GardenBeds", x => x.GardenBedId);
+                    table.ForeignKey(
+                        name: "FK_GardenBeds_AspNetUsers_userId",
+                        column: x => x.userId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Plants",
+                columns: table => new
+                {
+                    PlantId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    PlantName = table.Column<string>(nullable: false),
+                    rowWidth = table.Column<double>(nullable: false),
+                    BetweenPlants = table.Column<double>(nullable: false),
+                    groundDepth = table.Column<double>(nullable: false),
+                    Soil = table.Column<string>(nullable: false),
+                    Season = table.Column<string>(nullable: false),
+                    Watering = table.Column<string>(nullable: false),
+                    Pruning = table.Column<string>(nullable: false),
+                    Pests = table.Column<string>(nullable: false),
+                    Disease = table.Column<string>(nullable: false),
+                    MiscCare = table.Column<string>(nullable: false),
+                    Storage = table.Column<string>(nullable: false),
+                    harvestMethod = table.Column<string>(nullable: false),
+                    ImagePath = table.Column<string>(nullable: true),
+                    userId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Plants", x => x.PlantId);
+                    table.ForeignKey(
+                        name: "FK_Plants_AspNetUsers_userId",
+                        column: x => x.userId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlantGardens",
+                columns: table => new
+                {
+                    PlantGardenId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    PlantId = table.Column<int>(nullable: false),
+                    GardenBedId = table.Column<int>(nullable: false),
+                    rowNumber = table.Column<int>(nullable: false),
+                    plantCount = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlantGardens", x => x.PlantGardenId);
+                    table.ForeignKey(
+                        name: "FK_PlantGardens_GardenBeds_GardenBedId",
+                        column: x => x.GardenBedId,
+                        principalTable: "GardenBeds",
+                        principalColumn: "GardenBedId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PlantGardens_Plants_PlantId",
+                        column: x => x.PlantId,
+                        principalTable: "Plants",
+                        principalColumn: "PlantId",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -197,6 +272,26 @@ namespace GardenBuddy.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GardenBeds_userId",
+                table: "GardenBeds",
+                column: "userId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlantGardens_GardenBedId",
+                table: "PlantGardens",
+                column: "GardenBedId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlantGardens_PlantId",
+                table: "PlantGardens",
+                column: "PlantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Plants_userId",
+                table: "Plants",
+                column: "userId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -217,7 +312,16 @@ namespace GardenBuddy.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "PlantGardens");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "GardenBeds");
+
+            migrationBuilder.DropTable(
+                name: "Plants");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

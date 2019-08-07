@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GardenBuddy.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190801152649_TwoPropsPlants")]
-    partial class TwoPropsPlants
+    [Migration("20190806205421_RedoingDB")]
+    partial class RedoingDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,57 @@ namespace GardenBuddy.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("GardenBuddy.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+                });
 
             modelBuilder.Entity("GardenBuddy.Models.GardenBed", b =>
                 {
@@ -30,7 +81,11 @@ namespace GardenBuddy.Migrations
                     b.Property<string>("name")
                         .IsRequired();
 
+                    b.Property<string>("userId");
+
                     b.HasKey("GardenBedId");
+
+                    b.HasIndex("userId");
 
                     b.ToTable("GardenBeds");
                 });
@@ -79,7 +134,11 @@ namespace GardenBuddy.Migrations
 
                     b.Property<double>("rowWidth");
 
+                    b.Property<string>("userId");
+
                     b.HasKey("PlantId");
+
+                    b.HasIndex("userId");
 
                     b.ToTable("Plants");
                 });
@@ -99,6 +158,10 @@ namespace GardenBuddy.Migrations
                     b.Property<int>("rowNumber");
 
                     b.HasKey("PlantGardenId");
+
+                    b.HasIndex("GardenBedId");
+
+                    b.HasIndex("PlantId");
 
                     b.ToTable("PlantGardens");
                 });
@@ -145,62 +208,6 @@ namespace GardenBuddy.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AccessFailedCount");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256);
-
-                    b.Property<bool>("EmailConfirmed");
-
-                    b.Property<bool>("LockoutEnabled");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("PasswordHash");
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("SecurityStamp");
-
-                    b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -273,11 +280,31 @@ namespace GardenBuddy.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("GardenBuddy.Models.ApplicationUser", b =>
+            modelBuilder.Entity("GardenBuddy.Models.GardenBed", b =>
                 {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+                    b.HasOne("GardenBuddy.Models.ApplicationUser", "user")
+                        .WithMany()
+                        .HasForeignKey("userId");
+                });
 
-                    b.HasDiscriminator().HasValue("ApplicationUser");
+            modelBuilder.Entity("GardenBuddy.Models.Plant", b =>
+                {
+                    b.HasOne("GardenBuddy.Models.ApplicationUser", "user")
+                        .WithMany()
+                        .HasForeignKey("userId");
+                });
+
+            modelBuilder.Entity("GardenBuddy.Models.PlantGarden", b =>
+                {
+                    b.HasOne("GardenBuddy.Models.GardenBed", "GardenBed")
+                        .WithMany("PlantGardens")
+                        .HasForeignKey("GardenBedId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("GardenBuddy.Models.Plant", "Plant")
+                        .WithMany("PlantGarden")
+                        .HasForeignKey("PlantId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -290,7 +317,7 @@ namespace GardenBuddy.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                    b.HasOne("GardenBuddy.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -298,7 +325,7 @@ namespace GardenBuddy.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                    b.HasOne("GardenBuddy.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -311,7 +338,7 @@ namespace GardenBuddy.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                    b.HasOne("GardenBuddy.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -319,7 +346,7 @@ namespace GardenBuddy.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                    b.HasOne("GardenBuddy.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

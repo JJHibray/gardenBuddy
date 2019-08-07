@@ -1,4 +1,7 @@
-﻿@model IEnumerable<GardenBuddy.Models.Plant>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+
+@model IEnumerable<GardenBuddy.Models.Plant>
 
 @{
     ViewData["Title"] = "Index";
@@ -58,9 +61,14 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
-            @{var photoPath = "~/images/" + (item.ImagePath ?? "noimage.jpg");}
+            @{var photoPath = "~/images/" + (item.ImagePath ?? "noimage.jpg");
+                var currUser = SignInManager.UserManager.GetUserId(User);
+
+            }
+
             <td>
                 @Html.DisplayFor(modelItem => item.PlantName)
             </td>
@@ -104,12 +112,23 @@
                 <img class="card-img-top imageThumbnail" src="~/images/@item.ImagePath"
                      asp-append-version="true" />
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.PlantId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PlantId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PlantId">Delete</a>
-            </td>
+            @if (currUser != null && item.userId == currUser)
+            {
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.PlantId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.PlantId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.PlantId">Delete</a>
+                </td>
+            }
+            else
+            {
+                <td>
+                 
+                    <a asp-action="Details" asp-route-id="@item.PlantId">Details</a>
+                   
+                </td>
+            }
         </tr>
-}
+        }
     </tbody>
 </table>

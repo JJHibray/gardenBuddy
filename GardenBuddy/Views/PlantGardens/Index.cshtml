@@ -1,0 +1,53 @@
+﻿@model IEnumerable<GardenBuddy.Models.PlantGarden>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.rowNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.plantCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GardenBed)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.rowNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.plantCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plant.Disease)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GardenBed.name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PlantGardenId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PlantGardenId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PlantGardenId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
