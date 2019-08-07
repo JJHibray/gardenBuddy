@@ -1,24 +1,56 @@
-﻿@model GardenBuddy.Models.GardenBed
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+
+@model GardenBuddy.Models.GardenBedViewModels.GardenBedDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
+<link rel="stylesheet" href="~/css/gardenDetails.css" />
+
 <h1>Details</h1>
 
 <div>
-    <h4>GardenBed</h4>
+    <h4>@Html.DisplayFor(model => model.GardenBeds.name)</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.name)
-        </dd>
+        @*<dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Plantgarden.)
+            </dt>*@
+        @*<dd class="col-sm-10">
+                @Html.DisplayNameFor(model => model.Plantgarden.rowNumber)
+            </dd>*@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.GardenBedId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+@foreach (var item in Model.GardenBeds.PlantGardens)
+{
+    <div class="card" style="width: 18rem">
+        @{var photoPath = "~/images/" + (item.Plant.ImagePath ?? "noimage.jpg");
+            var currUser = SignInManager.UserManager.GetUserId(User);
+
+        }
+            <img class="card-img-top imageThumbnail" src="~/images/@item.Plant.ImagePath"
+                     asp-append-version="true" />
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a asp-route-id="@item.PlantId" asp-controller="GardenBeds" asp-action="PlantDetail"> @Html.DisplayFor(modelItem => item.Plant.PlantName)</a>
+                </h5>
+
+                <p class="card-text">
+                    Row Number: @Html.DisplayFor(modelItem => item.rowNumber)
+                </p>
+                <p class="card-text">
+                    Row Width(inches): @Html.DisplayFor(modelItem => item.Plant.rowWidth)
+                 </p>
+            </div>
+        <a asp-controller="GardenBeds" asp-action="EditPlant" asp-route-id="@item.PlantGardenId">Edit</a>
+        <a asp-controller="PlantGardens" asp-action="Delete" asp-route-id="@item.PlantGardenId">Delete</a>
+    </div>
+      }
+ </div>
+    <div>
+        @*<a asp-action="Edit" asp-route-id="@Model.GardenBeds.GardenBedId">Edit</a> |*@
+        <a asp-action="AddPlant" asp-controller="GardenBeds">Add Plant</a> | <a asp-action="Index">Back to List</a>
+    </div>

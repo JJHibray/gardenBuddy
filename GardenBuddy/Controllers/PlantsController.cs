@@ -67,6 +67,9 @@ namespace GardenBuddy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreatePlantViewModel viewmodel)
         {
+            ModelState.Remove("User");
+            ModelState.Remove("UserId");
+
             if (ModelState.IsValid)
             {
                 string uniqueFileName = null;
@@ -88,7 +91,9 @@ namespace GardenBuddy.Controllers
                     viewmodel.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
                 }
                 var plant = viewmodel.plant;
+                var currUser = await GetCurrentUserAsync();
                 plant.ImagePath = uniqueFileName;
+                plant.userId = currUser.Id;
                 _context.Add(plant);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -123,11 +128,15 @@ namespace GardenBuddy.Controllers
             {
                 return NotFound();
             }
+            ModelState.Remove("User");
+            ModelState.Remove("UserId");
+            var currUser = await GetCurrentUserAsync();
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    plant.userId = currUser.Id;
                     _context.Update(plant);
                     await _context.SaveChangesAsync();
                 }

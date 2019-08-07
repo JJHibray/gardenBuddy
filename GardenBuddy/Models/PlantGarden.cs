@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,6 +19,10 @@ namespace GardenBuddy.Models
         public int rowNumber { get; set; }
 
         public int plantCount { get; set; }
+
+        public Plant Plant { get; set; }
+
+        public GardenBed GardenBed { get; set; }
 
     }
 }

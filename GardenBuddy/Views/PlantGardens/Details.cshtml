@@ -1,0 +1,42 @@
+﻿@model GardenBuddy.Models.PlantGarden
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>PlantGarden</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.rowNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.rowNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.plantCount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.plantCount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Plant)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Plant.Disease)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GardenBed)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GardenBed.name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PlantGardenId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
