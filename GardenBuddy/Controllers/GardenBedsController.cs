@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using GardenBuddy.Models.GardenBedViewModels;
+using Microsoft.AspNetCore.Authorization;
+using static GardenBuddy.Models.GardenBedViewModels.GardenBedDetailsViewModel;
 
 namespace GardenBuddy.Controllers
 {
@@ -30,6 +32,7 @@ namespace GardenBuddy.Controllers
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: GardenBeds
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var currentUser = await GetCurrentUserAsync();
@@ -58,7 +61,16 @@ namespace GardenBuddy.Controllers
             GardenBedDetailsViewModel viewmodel = new GardenBedDetailsViewModel
             {
                 GardenBeds = gardenBed
+                
             };
+
+            viewmodel.totalWidth = gardenBed.PlantGardens
+                .GroupBy(rw => rw.Plant)
+                .Select(p => new totalRowWidth
+                {
+                    Plant = p.Key,
+                    rowWidth = p.Key.rowWidth * p.Select(l => l.PlantId).Count()
+                }).ToList();
 
             return View(viewmodel);
         }
@@ -217,7 +229,7 @@ namespace GardenBuddy.Controllers
 
                 _context.Add(viewmodel.PlantGarden);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "GardenBeds", new { id = viewmodel.GardenBedId });
             }
             return NotFound();
         }

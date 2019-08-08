@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using GardenBuddy.Models.PlantViewModels;
+using System.Reflection;
 
 namespace GardenBuddy.Controllers
 {
@@ -70,7 +71,21 @@ namespace GardenBuddy.Controllers
             ModelState.Remove("User");
             ModelState.Remove("UserId");
 
-            if (ModelState.IsValid)
+
+            //Attempting to use reflection as a means to change all plant types to value "n/a" if null.  
+
+            //PropertyInfo[] properties = viewmodel.plant.GetType().GetProperties();
+
+            //foreach (var property in properties)
+            //{
+            //    if (property.PropertyType == typeof(string) && property.GetValue(viewmodel.plant) != null)
+            //    {
+            //        string newvalue = property.GetValue(this).ToString();
+            //        property.SetValue(viewmodel.plant, "n/a");
+            //    }
+            //}
+
+                if (ModelState.IsValid)
             {
                 string uniqueFileName = null;
 

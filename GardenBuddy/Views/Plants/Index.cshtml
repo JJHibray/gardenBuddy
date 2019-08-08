@@ -19,6 +19,9 @@
                 @Html.DisplayNameFor(model => model.PlantName)
             </th>
             <th>
+                Image@*@Html.DisplayNameFor(model => model.ImagePath)*@
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.rowWidth)
             </th>
             <th>
@@ -54,9 +57,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.harvestMethod)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagePath)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -71,6 +71,10 @@
 
             <td>
                 @Html.DisplayFor(modelItem => item.PlantName)
+            </td>
+            <td>
+                <img class="card-img-top imageThumbnail" src="~/images/@item.ImagePath"
+                     asp-append-version="true" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.rowWidth)
@@ -108,10 +112,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.harvestMethod)
             </td>
-            <td>
-                <img class="card-img-top imageThumbnail" src="~/images/@item.ImagePath"
-                     asp-append-version="true" />
-            </td>
             @if (currUser != null && item.userId == currUser)
             {
                 <td>
@@ -123,9 +123,9 @@
             else
             {
                 <td>
-                 
+
                     <a asp-action="Details" asp-route-id="@item.PlantId">Details</a>
-                   
+
                 </td>
             }
         </tr>

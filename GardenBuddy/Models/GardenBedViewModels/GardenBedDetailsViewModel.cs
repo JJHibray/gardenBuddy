@@ -17,5 +17,27 @@ namespace GardenBuddy.Models.GardenBedViewModels
 
         public PlantGarden Plantgarden { get; set; }
 
+        public class totalRowWidth {
+           public double rowWidth { get; set; }
+
+            public Plant Plant { get; set; }
+        }
+
+        public List<totalRowWidth> totalWidth { get; set; }
+
+        public double TotalWidth
+        {
+            get
+            {
+                var sum = 0.0;
+                foreach (var li in totalWidth)
+                {
+                    sum += li.rowWidth;
+                }
+                return sum;
+            }
+        }
+
+
     }
 }
