@@ -34,47 +34,47 @@
             </div>
             <div class="form-group">
                 <label asp-for="plant.Soil" class="control-label"></label>
-                <input asp-for="plant.Soil" class="form-control" />
+                <input asp-for="plant.Soil" class="form-control" placeholder="Preferred Soil Type..." value-autocomplete="n/a"  />
                 <span asp-validation-for="plant.Soil" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="plant.Season" class="control-label"></label>
-                <input asp-for="plant.Season" class="form-control" />
+                <input asp-for="plant.Season" class="form-control" placeholder="Preferred Planting Season... (Required)" value-hidden="n/a" />
                 <span asp-validation-for="plant.Season" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="plant.Watering" class="control-label"></label>
-                <input asp-for="plant.Watering" class="form-control" />
+                <input asp-for="plant.Watering" class="form-control" placeholder="How often does plant need water? (Required)"  />
                 <span asp-validation-for="plant.Watering" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="plant.Pruning" class="control-label"></label>
-                <input asp-for="plant.Pruning" class="form-control" />
+                <input asp-for="plant.Pruning" class="form-control" placeholder="Does plant need pruning?"  />
                 <span asp-validation-for="plant.Pruning" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="plant.Pests" class="control-label"></label>
-                <input asp-for="plant.Pests" class="form-control" />
+                <input asp-for="plant.Pests" class="form-control" placeholder="Likely pests?"  />
                 <span asp-validation-for="plant.Pests" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="plant.Disease" class="control-label"></label>
-                <input asp-for="plant.Disease" class="form-control" />
+                <input asp-for="plant.Disease" class="form-control" placeholder="Potential dieseases?"  />
                 <span asp-validation-for="plant.Disease" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="plant.MiscCare" class="control-label"></label>
-                <input asp-for="plant.MiscCare" class="form-control" />
+                <input asp-for="plant.MiscCare" placeholder="Any plant specific notes?" class="form-control" />
                 <span asp-validation-for="plant.MiscCare" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="plant.Storage" class="control-label"></label>
-                <input asp-for="plant.Storage" class="form-control" />
+                <input placeholder="How to store plants" asp-for="plant.Storage" class="form-control" />
                 <span asp-validation-for="plant.Storage" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="plant.harvestMethod" class="control-label"></label>
-                <input asp-for="plant.harvestMethod" class="form-control" />
+                <input asp-for="plant.harvestMethod" placeholder="How to harvest plants" class="form-control" />
                 <span asp-validation-for="plant.harvestMethod" class="text-danger"></span>
             </div>
             <div class="form-group row">

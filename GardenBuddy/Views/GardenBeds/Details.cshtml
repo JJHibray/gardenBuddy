@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using System.Linq;
 @inject SignInManager<ApplicationUser> SignInManager
 
 @model GardenBuddy.Models.GardenBedViewModels.GardenBedDetailsViewModel
@@ -9,11 +10,14 @@
 
 <link rel="stylesheet" href="~/css/gardenDetails.css" />
 
-<h1>Details</h1>
-
+@*<h1>Details</h1>*@
 <div>
     <h4>@Html.DisplayFor(model => model.GardenBeds.name)</h4>
     <hr />
+    Total Width of Garden: @Html.DisplayFor(model => model.TotalWidth) Inches
+    <div class="plantButton">
+        <a class="btn btn-primary" asp-action="AddPlant" asp-controller="GardenBeds">Add Plant</a>
+    </div>
     <dl class="row">
         @*<dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Plantgarden.)
@@ -24,15 +28,16 @@
     </dl>
 </div>
 <div>
-@foreach (var item in Model.GardenBeds.PlantGardens)
-{
-    <div class="card" style="width: 18rem">
-        @{var photoPath = "~/images/" + (item.Plant.ImagePath ?? "noimage.jpg");
-            var currUser = SignInManager.UserManager.GetUserId(User);
+    @foreach (var item in Model.GardenBeds.PlantGardens)
+    {
+    <div class="flexcontainer">
+        <div class="card" style="width: 18rem">
+            @{var photoPath = "~/images/" + (item.Plant.ImagePath ?? "noimage.jpg");
+                var currUser = SignInManager.UserManager.GetUserId(User);
 
-        }
+            }
             <img class="card-img-top imageThumbnail" src="~/images/@item.Plant.ImagePath"
-                     asp-append-version="true" />
+                 asp-append-version="true" />
             <div class="card-body">
                 <h5 class="card-title">
                     <a asp-route-id="@item.PlantId" asp-controller="GardenBeds" asp-action="PlantDetail"> @Html.DisplayFor(modelItem => item.Plant.PlantName)</a>
@@ -42,15 +47,29 @@
                     Row Number: @Html.DisplayFor(modelItem => item.rowNumber)
                 </p>
                 <p class="card-text">
-                    Row Width(inches): @Html.DisplayFor(modelItem => item.Plant.rowWidth)
-                 </p>
+                    Row Width: @Html.DisplayFor(modelItem => item.Plant.rowWidth) Inches
+                </p>
+                <p class="card-text">
+                    How many plants in Row: @Html.DisplayFor(modelItem => item.plantCount)
+                </p>
+
+                <p class="card-text">
+                    Space Between @Html.DisplayFor(modelItem => item.Plant.PlantName)s in Row:
+                </p>
+                <p>
+                    @Html.DisplayFor(modelItem => item.Plant.BetweenPlants) Inches
+                </p>
+                <p class="card-text">
+                    <a asp-controller="GardenBeds" asp-action="EditPlant" asp-route-id="@item.PlantGardenId">Edit</a>  |   <a asp-controller="PlantGardens" asp-action="Delete" asp-route-id="@item.PlantGardenId">Delete</a>
+                </p>
             </div>
-        <a asp-controller="GardenBeds" asp-action="EditPlant" asp-route-id="@item.PlantGardenId">Edit</a>
-        <a asp-controller="PlantGardens" asp-action="Delete" asp-route-id="@item.PlantGardenId">Delete</a>
+            @*<a asp-controller="GardenBeds" asp-action="EditPlant" asp-route-id="@item.PlantGardenId">Edit</a>
+            <a asp-controller="PlantGardens" asp-action="Delete" asp-route-id="@item.PlantGardenId">Delete</a>*@
+        </div>
     </div>
-      }
- </div>
-    <div>
-        @*<a asp-action="Edit" asp-route-id="@Model.GardenBeds.GardenBedId">Edit</a> |*@
-        <a asp-action="AddPlant" asp-controller="GardenBeds">Add Plant</a> | <a asp-action="Index">Back to List</a>
-    </div>
+    }
+</div>
+<div>
+    @*<a asp-action="Edit" asp-route-id="@Model.GardenBeds.GardenBedId">Edit</a> |*@
+    <a asp-action="Index">Back to My Gardens</a>
+</div>

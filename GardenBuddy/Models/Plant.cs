@@ -15,28 +15,36 @@ namespace GardenBuddy.Models
         [Display(Name = "Plant")]
         public string PlantName { get; set; }
         [Required]
+        [Display(Name = "Row Width(inches)")]
+        [Range(.01, 999.99)]
         public double rowWidth { get; set; }
         [Required]
+        [Range(.01, 999.99)]
+        [Display(Name = "Between Plants(inches)")]
         public double BetweenPlants { get; set; }
         [Required]
+        [Display(Name = "Depth to Plant(inches)")]
+        [Range(.01, 999.99)]
         public double groundDepth { get; set; }
-        [Required]
+        
         public string Soil { get; set; }
         [Required]
         public string Season { get; set; }
         [Required]
         public string Watering { get; set; }
-        [Required]
+        
         public string Pruning { get; set; }
-        [Required]
+        
         public string Pests { get; set; }
-        [Required]
+        
         public string Disease { get; set; }
-        [Required]
+        
+        [Display(Name = "Misc Care")]
         public string MiscCare { get; set; }
-        [Required]
+        
         public string Storage { get; set; }
-        [Required]
+        
+        [Display(Name = "Harvest Method")]
         public string harvestMethod { get; set; }
 
         public string ImagePath { get; set; }

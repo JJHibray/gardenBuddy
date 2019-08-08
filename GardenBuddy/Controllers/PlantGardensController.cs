@@ -155,7 +155,7 @@ namespace GardenBuddy.Controllers
             var plantGarden = await _context.PlantGardens.FindAsync(id);
             _context.PlantGardens.Remove(plantGarden);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "GardenBeds", new { id = plantGarden.GardenBedId });
         }
 
         private bool PlantGardenExists(int id)
