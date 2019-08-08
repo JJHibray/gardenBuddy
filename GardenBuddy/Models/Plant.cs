@@ -26,25 +26,25 @@ namespace GardenBuddy.Models
         [Display(Name = "Depth to Plant(inches)")]
         [Range(.01, 999.99)]
         public double groundDepth { get; set; }
-        
+        [Display(Name = "Best Soil?")]
         public string Soil { get; set; }
         [Required]
         public string Season { get; set; }
         [Required]
         public string Watering { get; set; }
-        
+        [Display(Name = "How to Prune")]
         public string Pruning { get; set; }
-        
+        [Display(Name = "Possible Pests?")]
         public string Pests { get; set; }
-        
+        [Display(Name = "Possible Disease?")]
         public string Disease { get; set; }
         
         [Display(Name = "Misc Care")]
         public string MiscCare { get; set; }
-        
+        [Display(Name = "How to Store Plant")]
         public string Storage { get; set; }
         
-        [Display(Name = "Harvest Method")]
+        [Display(Name = "How to Harvest")]
         public string harvestMethod { get; set; }
 
         public string ImagePath { get; set; }

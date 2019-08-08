@@ -20,6 +20,8 @@ namespace GardenBuddy.Models.GardenBedViewModels
         public class totalRowWidth {
            public double rowWidth { get; set; }
 
+            public int plantCount { get; set; }
+
             public Plant Plant { get; set; }
         }
 
@@ -38,6 +40,18 @@ namespace GardenBuddy.Models.GardenBedViewModels
             }
         }
 
+        public double totalRowLength
+        {
+            get
+            {
+                var sum = 0.0;
+                foreach (var length in totalWidth)
+                {
+                    sum += length.plantCount + length.Plant.BetweenPlants;
+                }
+                return sum;
+            }
+        }
 
     }
 }

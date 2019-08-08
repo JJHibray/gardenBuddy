@@ -69,8 +69,10 @@ namespace GardenBuddy.Controllers
                 .Select(p => new totalRowWidth
                 {
                     Plant = p.Key,
-                    rowWidth = p.Key.rowWidth * p.Select(l => l.PlantId).Count()
+                    rowWidth = p.Key.rowWidth * p.Select(l => l.PlantId).Count(),
                 }).ToList();
+
+            
 
             return View(viewmodel);
         }

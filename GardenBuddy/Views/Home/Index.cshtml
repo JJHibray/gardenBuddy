@@ -1,10 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+    <link rel="stylesheet" href="~/css/homepage.css" />
 
 <div class="text-center">
     <h1 class="display-4">Welcome To Garden Buddy, Buddy!</h1>
     <p>Click the Button Below to Get Started on your Garden or View your Garden(s) you have already created.</p>
              <p>(If you have not registered, you will not be able to create a Garden)</p>
-    <a class="btn btn-primary" asp-action="Index" asp-controller="GardenBeds">Your Garden Awaits</a>
+    <a id="button" class="btn btn-primary" asp-action="Index" asp-controller="GardenBeds">Your Garden Awaits</a>
+             <div id="gardenImage">
+                 <img src="~/images/garden1.jpg" alt="Garden" />
+             </div>
 </div>
