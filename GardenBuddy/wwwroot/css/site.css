@@ -18,6 +18,9 @@ html {
   }
 }
 
+#Navbar {
+    background-color: #d5e1df !important;
+}
 
 
 .border-top {
@@ -44,8 +47,9 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: #e3eaa7;
 }
 .footer {
   position: absolute;

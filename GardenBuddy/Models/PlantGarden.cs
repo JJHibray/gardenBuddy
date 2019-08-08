@@ -16,9 +16,10 @@ namespace GardenBuddy.Models
         public int PlantId { get; set; }
 
         public int GardenBedId { get; set; }
-
+        [Display(Name = "Plant Row Number")]
         [Range(1, 20)]
         public int rowNumber { get; set; }
+        [Display(Name = "Total Plants in Row")]
         [Range(1, 100)]
         public int plantCount { get; set; }
 

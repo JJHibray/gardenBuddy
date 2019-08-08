@@ -28,9 +28,9 @@
     </dl>
 </div>
 <div>
+    <div class="flexcontainer">
     @foreach (var item in Model.GardenBeds.PlantGardens)
     {
-    <div class="flexcontainer">
         <div class="card" style="width: 18rem">
             @{var photoPath = "~/images/" + (item.Plant.ImagePath ?? "noimage.jpg");
                 var currUser = SignInManager.UserManager.GetUserId(User);
@@ -66,8 +66,8 @@
             @*<a asp-controller="GardenBeds" asp-action="EditPlant" asp-route-id="@item.PlantGardenId">Edit</a>
             <a asp-controller="PlantGardens" asp-action="Delete" asp-route-id="@item.PlantGardenId">Delete</a>*@
         </div>
-    </div>
     }
+    </div>
 </div>
 <div>
     @*<a asp-action="Edit" asp-route-id="@Model.GardenBeds.GardenBedId">Edit</a> |*@

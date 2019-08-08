@@ -4,9 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Plant</h4>
+<h4>Edit Plant Details</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -77,11 +75,6 @@
                 <label asp-for="harvestMethod" class="control-label"></label>
                 <input asp-for="harvestMethod" class="form-control" />
                 <span asp-validation-for="harvestMethod" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImagePath" class="control-label"></label>
-                <input asp-for="ImagePath" class="form-control" />
-                <span asp-validation-for="ImagePath" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

@@ -1,0 +1,14 @@
+﻿body {
+    
+}
+
+#gardenImage {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#button {
+    margin-bottom: 20px;
+}

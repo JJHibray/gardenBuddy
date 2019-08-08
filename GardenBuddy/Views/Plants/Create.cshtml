@@ -14,32 +14,32 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="plant.PlantName" class="control-label"></label>
-                <input asp-for="plant.PlantName" class="form-control" />
+                <input asp-for="plant.PlantName" class="form-control" placeholder="What Plant are you planting?"/>
                 <span asp-validation-for="plant.PlantName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="plant.rowWidth" class="control-label"></label>
-                <input asp-for="plant.rowWidth" class="form-control" />
+                <input asp-for="plant.rowWidth" class="form-control" placeholder="Width needed for the row plant is in..."/>
                 <span asp-validation-for="plant.rowWidth" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="plant.BetweenPlants" class="control-label"></label>
-                <input asp-for="plant.BetweenPlants" class="form-control" />
+                <input asp-for="plant.BetweenPlants" class="form-control" placeholder="Space between plants within the same row..." />
                 <span asp-validation-for="plant.BetweenPlants" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="plant.groundDepth" class="control-label"></label>
-                <input asp-for="plant.groundDepth" class="form-control" />
+                <input asp-for="plant.groundDepth" class="form-control" placeholder="Depth Plant needs to be buried... (in Inches)" />
                 <span asp-validation-for="plant.groundDepth" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="plant.Soil" class="control-label"></label>
-                <input asp-for="plant.Soil" class="form-control" placeholder="Preferred Soil Type..." value-autocomplete="n/a"  />
+                <input asp-for="plant.Soil" class="form-control" placeholder="Preferred Soil Type..." />
                 <span asp-validation-for="plant.Soil" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="plant.Season" class="control-label"></label>
-                <input asp-for="plant.Season" class="form-control" placeholder="Preferred Planting Season... (Required)" value-hidden="n/a" />
+                <input asp-for="plant.Season" class="form-control" placeholder="Preferred Planting Season... (Required)" />
                 <span asp-validation-for="plant.Season" class="text-danger"></span>
             </div>
             <div class="form-group">
