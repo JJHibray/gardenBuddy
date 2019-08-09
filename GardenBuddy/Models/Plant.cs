@@ -34,7 +34,7 @@ namespace GardenBuddy.Models
         public string Watering { get; set; }
         [Display(Name = "How to Prune")]
         public string Pruning { get; set; }
-        [Display(Name = "Possible Pests?")]
+        [Display(Name = "Possible Pest?")]
         public string Pests { get; set; }
         [Display(Name = "Possible Disease?")]
         public string Disease { get; set; }

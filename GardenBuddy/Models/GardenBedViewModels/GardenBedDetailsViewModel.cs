@@ -20,13 +20,20 @@ namespace GardenBuddy.Models.GardenBedViewModels
         public class totalRowWidth {
            public double rowWidth { get; set; }
 
-            public int plantCount { get; set; }
-
             public Plant Plant { get; set; }
         }
 
         public List<totalRowWidth> totalWidth { get; set; }
 
+        public class totalRowLength
+        {
+            public Plant Plant { get; set; }
+
+            public int plantCount { get; set; }
+
+        }
+
+        public List<totalRowLength> totalLength { get; set; }
         public double TotalWidth
         {
             get
@@ -40,12 +47,18 @@ namespace GardenBuddy.Models.GardenBedViewModels
             }
         }
 
-        public double totalRowLength
+        static KeyValuePair<int, double> ToFeetInches(double inches)
+        {
+            return new KeyValuePair<int, double>((int)inches / 12, inches % 12);
+        }
+    
+
+    public double TotalRowLength
         {
             get
             {
                 var sum = 0.0;
-                foreach (var length in totalWidth)
+                foreach (var length in totalLength)
                 {
                     sum += length.plantCount + length.Plant.BetweenPlants;
                 }

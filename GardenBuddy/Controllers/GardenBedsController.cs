@@ -61,7 +61,7 @@ namespace GardenBuddy.Controllers
             GardenBedDetailsViewModel viewmodel = new GardenBedDetailsViewModel
             {
                 GardenBeds = gardenBed
-                
+
             };
 
             viewmodel.totalWidth = gardenBed.PlantGardens
@@ -72,7 +72,7 @@ namespace GardenBuddy.Controllers
                     rowWidth = p.Key.rowWidth * p.Select(l => l.PlantId).Count(),
                 }).ToList();
 
-            
+
 
             return View(viewmodel);
         }

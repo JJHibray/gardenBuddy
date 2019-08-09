@@ -13,7 +13,7 @@
             <input type="hidden" asp-for="GardenBedId" value="@Model.PlantGarden.GardenBedId" />
             @*<input type="hidden" asp-for="Pl" value="@Model.PlantGarden.GardenBedId" />*@
             <div class="form-group">
-                <label asp-for="PlantGarden.PlantId" class="control-label"></label>
+                <label asp-for="PlantGarden.Plant.PlantName" class="control-label"></label>
                 <select asp-for="PlantGarden.PlantId" class="form-control" asp-items="@Model.PlantList"></select>
                 <span asp-validation-for="PlantGarden.PlantId" class="text-danger"></span>
             </div>

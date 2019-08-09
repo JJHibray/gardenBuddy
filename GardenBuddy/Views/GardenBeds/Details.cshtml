@@ -59,6 +59,10 @@
                 <p>
                     @Html.DisplayFor(modelItem => item.Plant.BetweenPlants) Inches
                 </p>
+              
+                    <p>
+                      Total Row Length: @(item.plantCount * item.Plant.BetweenPlants) Inches
+                  </p>
                 <p class="card-text">
                     <a asp-controller="GardenBeds" asp-action="EditPlant" asp-route-id="@item.PlantGardenId">Edit</a>  |   <a asp-controller="PlantGardens" asp-action="Delete" asp-route-id="@item.PlantGardenId">Delete</a>
                 </p>
